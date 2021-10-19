@@ -1,0 +1,10 @@
+
+cmake_minimum_required (VERSION 3.8)
+project ("gpps-sfml")
+
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED true)
+
+find_package (SFML COMPONENTS system window graphics CONFIG REQUIRED)
+
+add_subdirectory ("02-Command")
