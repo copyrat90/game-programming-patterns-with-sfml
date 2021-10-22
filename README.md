@@ -1,6 +1,6 @@
-# Game Programming Patterns with SFML
+# Interactive Game Programming Patterns
 
-Examples from https://gameprogrammingpatterns.com, extended with [SFML](https://www.sfml-dev.org/).
+Examples from https://gameprogrammingpatterns.com as interactive GUI demo
 
 ### *Just started! Nothing to see now; Please visit later!*
 
@@ -19,7 +19,7 @@ While the example snippets from the GPP book is good enough to demonstrate the p
 You cannot run them as they are.
 
 The author provides the [demo source](https://github.com/munificent/game-programming-patterns/tree/master/code/cpp), but it runs on the *boring command line*.\
-That is why I started this project; **To write an interactive GUI demo to extend the examples, complementing the GPP.**
+That is why I started this project; **To write interactive GUI demo to extend the examples, complementing the GPP.**
 
 ### So, is it a full game?
 Unfortunately, it is not; It is more like a small *interactive learning material*.
