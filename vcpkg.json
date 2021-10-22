@@ -3,6 +3,8 @@
     "name": "gpps-sfml",
     "version": "0.0.1",
     "dependencies": [
-        "sfml"
+        "sfml",
+        "imgui",
+        "imgui-sfml"
     ]
 }

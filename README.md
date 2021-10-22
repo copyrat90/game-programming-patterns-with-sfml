@@ -60,9 +60,14 @@ Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/m
 
 This project relies on these libraries:
 + [**SFML**](https://www.sfml-dev.org/) [(GitHub link)](https://github.com/SFML/SFML) : Simple and Fast Multimedia Library
-    - License: [zlib/libpng license](https://www.sfml-dev.org/license.php)
+    - License: [zlib/libpng](https://www.sfml-dev.org/license.php)
++ [**Dear ImGui**](https://github.com/ocornut/imgui) : Bloat-free Graphical User interface for C++ with minimal dependencies
+    - License: [MIT/Expat](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)
++ [**ImGui-SFML**](https://github.com/eliasdaler/imgui-sfml) : Dear ImGui binding for use with SFML
+    - License: [MIT/Expat](https://github.com/eliasdaler/imgui-sfml/blob/master/LICENSE)
 
-
+More dependencies can be found at `licenses/` directory.
+> *(TODO: Actually add `licenses/` before binary release)*
 
 ## License
 
