@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
-    "name": "gpps-sfml",
+    "name": "igpp",
     "version": "0.0.1",
     "dependencies": [
         "sfml",
