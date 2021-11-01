@@ -1,0 +1,19 @@
+# Run clang-format check
+
+name: format-check
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  format_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: clang-format check
+        uses: DoozyX/clang-format-lint-action@v0.13
+        with:
+          source: .
+          exclude: build out
+          extensions: c,cpp,cc,cxx,h,hpp,hh,hxx,tpp,inl
+          clangFormatVersion: 13
