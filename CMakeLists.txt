@@ -9,4 +9,4 @@ find_package (SFML COMPONENTS system window graphics CONFIG REQUIRED)
 find_package (ImGui CONFIG REQUIRED)
 find_package (ImGui-SFML CONFIG REQUIRED)
 
-add_subdirectory ("Sources")
+add_subdirectory ("Patterns")
