@@ -1,6 +1,6 @@
 
-add_executable ("02_Command_01_Configure_Input_and_Actors"
-    "main.cpp" 
+add_executable ("02_Command_01_Configure_Input_and_Actors" WIN32
+    "main.cpp"
 )
 
 target_link_libraries ("02_Command_01_Configure_Input_and_Actors"
