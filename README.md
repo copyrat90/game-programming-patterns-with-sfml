@@ -66,11 +66,10 @@ This project relies on these libraries:
 + [**ImGui-SFML**](https://github.com/eliasdaler/imgui-sfml) : Dear ImGui binding for use with SFML
     - License: [MIT/Expat](https://github.com/eliasdaler/imgui-sfml/blob/master/LICENSE)
 
-More dependencies can be found at `licenses/` directory.
-> *(TODO: Actually add `licenses/` before binary release)*
+
 
 ## License
 
-Source code is licensed under the [MIT/Expat license](LICENSE).
+The source code of this project is licensed under the [MIT/Expat license](LICENSE).
 
-> *(Placeholder: Put asset's license notice here)*
+You can find the license of each asset on `Patterns/{xx-Pattern}/{yy-Example}/assets`, with the asset itself.
