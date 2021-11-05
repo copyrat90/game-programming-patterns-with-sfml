@@ -16,4 +16,6 @@ else()
     )
 endif()
 
+add_subdirectory("00-Test/01-Test-01")
+
 add_subdirectory("02-Command/01-Configure-Input-and-Actors")
