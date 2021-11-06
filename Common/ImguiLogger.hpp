@@ -22,12 +22,62 @@ private:
     ImVector<int> LineOffsets; // Index to lines offset. We maintain this with AddLog() calls.
     bool AutoScroll;           // Keep scrolling if already at the bottom.
 
+    // Added on 2021-11-06 by copyrat90
+    ImVec2 initPos_, initSize_;
+    ImGuiWindowFlags flags_;
+    static const ImGuiWindowFlags DEFAULT_FLAGS = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |
+                                                  ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoScrollbar;
+
 public:
-    ImguiLogger()
+    // Added on 2021-11-06 by copyrat90
+    enum class CornerPos
+    {
+        UPPER_LEFT,
+        UPPER_RIGHT,
+        LOWER_LEFT,
+        LOWER_RIGHT
+    };
+
+    // Modified on 2021-11-06 by copyrat90
+    // Added logger window initial pos & size & flags
+    ImguiLogger(ImVec2 initPos, ImVec2 initSize, ImGuiWindowFlags flags = DEFAULT_FLAGS)
+        : initPos_(initPos), initSize_(initSize), flags_(flags)
     {
         AutoScroll = true;
         Clear();
     }
+
+    // Added on 2021-11-06 by copyrat90
+    ImguiLogger(CornerPos cornerPos, ImVec2 sfmlWindowSize, ImVec2 initSize, ImVec2 margin = ImVec2(10, 10),
+                ImGuiWindowFlags flags = DEFAULT_FLAGS)
+        : initSize_(initSize), flags_(flags)
+    {
+        initPos_ = margin;
+        switch (cornerPos)
+        {
+        case CornerPos::UPPER_LEFT:
+            initPos_ = margin;
+            break;
+        case CornerPos::UPPER_RIGHT:
+            initPos_.x = sfmlWindowSize.x - margin.x - initSize.x;
+            initPos_.y = margin.y;
+            break;
+        case CornerPos::LOWER_LEFT:
+            initPos_.x = margin.x;
+            initPos_.y = sfmlWindowSize.y - margin.y - initSize.y;
+            break;
+        case CornerPos::LOWER_RIGHT:
+            initPos_.x = sfmlWindowSize.x - margin.x - initSize.x;
+            initPos_.y = sfmlWindowSize.y - margin.y - initSize.y;
+            break;
+        }
+        AutoScroll = true;
+        Clear();
+    }
+
+    // Added on 2021-11-06 by copyrat90
+    ImguiLogger(const ImguiLogger&) = delete;
+    ImguiLogger& operator=(const ImguiLogger&) = delete;
 
     void Clear()
     {
@@ -55,38 +105,42 @@ public:
                 LineOffsets.push_back(old_size + 1);
     }
 
+    // Modified on 2021-11-05 by copyrat90
     void Draw(const char* title, bool* p_open = NULL)
     {
-        if (!ImGui::Begin(title, p_open))
+        ImGui::SetNextWindowPos(initPos_, ImGuiCond_Once);
+        ImGui::SetNextWindowSize(initSize_, ImGuiCond_Once);
+        // Modified to add flags
+        if (!ImGui::Begin(title, p_open, flags_))
         {
             ImGui::End();
             return;
         }
 
         // Options menu
-        if (ImGui::BeginPopup("Options"))
-        {
-            ImGui::Checkbox("Auto-scroll", &AutoScroll);
-            ImGui::EndPopup();
-        }
+        // if (ImGui::BeginPopup("Options"))
+        //{
+        //    ImGui::Checkbox("Auto-scroll", &AutoScroll);
+        //    ImGui::EndPopup();
+        //}
 
         // Main window
-        if (ImGui::Button("Options"))
-            ImGui::OpenPopup("Options");
-        ImGui::SameLine();
-        bool clear = ImGui::Button("Clear");
-        ImGui::SameLine();
-        bool copy = ImGui::Button("Copy");
-        ImGui::SameLine();
-        Filter.Draw("Filter", -100.0f);
+        // if (ImGui::Button("Options"))
+        //    ImGui::OpenPopup("Options");
+        // ImGui::SameLine();
+        // bool clear = ImGui::Button("Clear");
+        // ImGui::SameLine();
+        // bool copy = ImGui::Button("Copy");
+        // ImGui::SameLine();
+        // Filter.Draw("Filter", -100.0f);
 
-        ImGui::Separator();
+        // ImGui::Separator();
         ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
-        if (clear)
-            Clear();
-        if (copy)
-            ImGui::LogToClipboard();
+        // if (clear)
+        //    Clear();
+        // if (copy)
+        //    ImGui::LogToClipboard();
 
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
         const char* buf = Buf.begin();
