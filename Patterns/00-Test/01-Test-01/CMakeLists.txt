@@ -6,3 +6,5 @@ add_executable ("01_Test_01" WIN32
 target_include_directories("01_Test_01" PRIVATE ${PATTERNS_INCLUDES})
 
 target_link_libraries("01_Test_01" PRIVATE ${PATTERNS_LIBS})
+
+file(COPY assets DESTINATION .)
