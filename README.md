@@ -1,5 +1,7 @@
 # Interactive Game Programming Patterns
 
+![build workflow status badge](https://github.com/copyrat90/interactive-game-programming-patterns/actions/workflows/build-check.yml/badge.svg?branch=main)
+
 Examples from https://gameprogrammingpatterns.com as interactive GUI demo
 
 ### *Just started! Nothing to see now; Please visit later!*
