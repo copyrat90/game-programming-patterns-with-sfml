@@ -1,5 +1,5 @@
 
-add_executable ("02_Command_01_Configure_Input_and_Actors" WIN32
+add_executable ("02_Command_01_Configure_Input_and_Actors"
     "src/main.cpp"
 )
 
