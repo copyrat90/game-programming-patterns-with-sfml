@@ -18,7 +18,7 @@ public:
         S,
         Z,
         X,
-        KEY_COUNT
+        TOTAL_COUNT_
     };
 
 public:
@@ -27,9 +27,9 @@ public:
     Command* handleInput();
 
 private:
-    std::array<const char*, KEY_COUNT> keybindNames_;
+    std::array<const char*, TOTAL_COUNT_> keybindNames_;
     // Methods to bind commands...
-    std::array<std::unique_ptr<Command>, KEY_COUNT> buttons_;
+    std::array<std::unique_ptr<Command>, TOTAL_COUNT_> buttons_;
 };
 
 } // namespace igpp::c02_01
