@@ -37,6 +37,7 @@ void Application::processEvents()
             window_.close();
     }
 
+    // Snippet from the book
     Command* command = inputHandler_.handleInput();
     if (command)
         command->execute(*dwarf_);

@@ -13,7 +13,11 @@ public:
     virtual ~GameActor() = default;
 
     virtual void update(const sf::Time& dt) = 0;
+
     virtual void jump() = 0;
+    virtual void weakAttack() = 0;
+    virtual void strongAttack() = 0;
+    virtual void specialAttack() = 0;
 };
 
 } // namespace igpp::c02_01

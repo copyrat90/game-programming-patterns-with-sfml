@@ -5,6 +5,7 @@
 namespace igpp::c02_01
 {
 
+// Snippet from the book
 class Command
 {
 public:

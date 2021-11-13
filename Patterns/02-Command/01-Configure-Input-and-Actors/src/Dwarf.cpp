@@ -5,7 +5,7 @@
 namespace igpp::c02_01
 {
 
-Dwarf::Dwarf(TextureManager& textures)
+Dwarf::Dwarf(TextureManager& textures) : animationState_(AnimationState::IDLE)
 {
     sprite_.setTexture(textures.get(TextureId::DWARF));
     sprite_.setTextureRect({0, 0, 64, 32});
@@ -19,7 +19,25 @@ Dwarf::Dwarf(TextureManager& textures)
 
 void Dwarf::jump()
 {
-    // TODO: Set the animationState_ to jumping
+    // TODO: Set the animationState_ to JUMP
+    // TODO: Restart the animation timer
+}
+
+void Dwarf::weakAttack()
+{
+    // TODO: Set the animationState_ to WEAK_ATTACK
+    // TODO: Restart the animation timer
+}
+
+void Dwarf::strongAttack()
+{
+    // TODO: Set the animationState_ to STRONG_ATTACK
+    // TODO: Restart the animation timer
+}
+
+void Dwarf::specialAttack()
+{
+    // TODO: Set the animationState_ to SPECIAL_ATTACK
     // TODO: Restart the animation timer
 }
 

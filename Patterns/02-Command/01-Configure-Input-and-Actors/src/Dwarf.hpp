@@ -28,9 +28,13 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void jump() override;
+    void weakAttack() override;
+    void strongAttack() override;
+    void specialAttack() override;
 
 private:
     sf::Sprite sprite_;
+    AnimationState animationState_;
 };
 
 } // namespace igpp::c02_01
