@@ -2,6 +2,9 @@
 add_executable ("02_Command_01_Configure_Input_and_Actors"
     "src/main.cpp"
     "src/Application.cpp"
+    
+    "src/InputHandler.cpp"
+    "src/Dwarf.cpp"
 )
 
 target_include_directories("02_Command_01_Configure_Input_and_Actors" PRIVATE ${PATTERNS_INCLUDES})

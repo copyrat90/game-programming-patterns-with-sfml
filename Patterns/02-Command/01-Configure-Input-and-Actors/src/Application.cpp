@@ -1,17 +1,20 @@
 #include "Application.hpp"
 
+#include "Dwarf.hpp"
+
 namespace igpp::c02_01
 {
 
-Application::Application() : window_(sf::VideoMode(960, 540), "02_Command_01_Configure_Input_and_Actors")
+Application::Application()
+    : window_(sf::VideoMode(960, 540), "02_Command_01_Configure_Input_and_Actors",
+              sf::Style::Titlebar | sf::Style::Close)
 {
     window_.setFramerateLimit(60);
     textures_.load(TextureId::DWARF, "assets/dwarf.png");
+    fonts_.load(FontId::D2CODING, "assets/d2coding.ttf");
 
-    dwarf_.setTexture(textures_.get(TextureId::DWARF));
-    dwarf_.setTextureRect({0, 0, 64, 32});
-    dwarf_.setPosition(480, 170);
-    dwarf_.setScale(5, 5);
+    actors_.push_back(std::make_unique<Dwarf>(textures_));
+    dwarf_ = actors_[0].get();
 }
 
 void Application::run()
@@ -33,17 +36,24 @@ void Application::processEvents()
         if (event.type == sf::Event::Closed)
             window_.close();
     }
+
+    Command* command = inputHandler_.handleInput();
+    if (command)
+        command->execute(*dwarf_);
 }
 
 void Application::update(const sf::Time& deltaTime)
 {
+    for (auto& actor : actors_)
+        actor->update(deltaTime);
 }
 
 void Application::render()
 {
     window_.clear();
 
-    window_.draw(dwarf_);
+    for (const auto& actor : actors_)
+        window_.draw(*actor);
 
     window_.display();
 }
