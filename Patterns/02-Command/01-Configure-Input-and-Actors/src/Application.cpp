@@ -1,6 +1,9 @@
 #include "Application.hpp"
 
+#include <imgui-SFML.h>
+
 #include "Dwarf.hpp"
+#include "global.hpp"
 
 namespace igpp::c02_01
 {
@@ -15,6 +18,16 @@ Application::Application()
 
     actors_.push_back(std::make_unique<Dwarf>(textures_));
     dwarf_ = actors_[0].get();
+
+    ImGui::SFML::Init(window_);
+    global::logger.emplace(common::ImguiLogger::CornerPos::UPPER_RIGHT, window_.getSize(), ImVec2(620, 170));
+
+    global::logger->AddLog("Program started\n");
+}
+
+Application::~Application()
+{
+    ImGui::SFML::Shutdown();
 }
 
 void Application::run()
@@ -33,6 +46,8 @@ void Application::processEvents()
     sf::Event event;
     while (window_.pollEvent(event))
     {
+        ImGui::SFML::ProcessEvent(event);
+
         if (event.type == sf::Event::Closed)
             window_.close();
     }
@@ -47,6 +62,8 @@ void Application::update(const sf::Time& deltaTime)
 {
     for (auto& actor : actors_)
         actor->update(deltaTime);
+
+    ImGui::SFML::Update(window_, deltaTime);
 }
 
 void Application::render()
@@ -56,6 +73,9 @@ void Application::render()
     for (const auto& actor : actors_)
         window_.draw(*actor);
 
+    global::logger->Draw("Log Window");
+
+    ImGui::SFML::Render(window_);
     window_.display();
 }
 
