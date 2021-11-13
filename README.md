@@ -49,11 +49,18 @@ You need to install these along with your favorite [C++ compiler that supports *
 1. [**CMake**](https://cmake.org/), the meta build system for C/C++.
 2. [**vcpkg**](https://vcpkg.io/), the C/C++ library manager by Microsoft.
 
-When executing `cmake`, you need to locate the `vcpkg.cmake` which comes with the vcpkg.
-```powershell
-# Assuming that vcpkg is installed on C:\vcpkg
-cmake ../my/project -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+Next, add `VCPKG_ROOT` environment variable pointing to the directory where vcpkg is installed.
+
+Finally, when executing `cmake`, specify the cmake preset as shown below.
+```bash
+cd /path/to/interactive-game-programming-patterns
+cmake --preset ninja-vcpkg
+cmake --build --preset ninja-vcpkg-debug
 ```
+
+> If you are using Visual Studio 2019 or later, you can just open the project's folder, wait for the CMake to automatically configure presets, and hit F6 to build.\
+> You still need to add `VCPKG_ROOT` environment variable though.
+
 Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/manifests.html), **all the dependencies are automatically installed** when you specify the [vcpkg's CMake toolchain file](https://vcpkg.io/en/docs/users/integration.html#cmake-toolchain-file-recommended-for-open-source-cmake-projects) on executing CMake.
 
 
