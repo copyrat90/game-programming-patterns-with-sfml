@@ -25,8 +25,7 @@ private:
     // Added on 2021-11-06 by copyrat90
     ImVec2 initPos_, initSize_;
     ImGuiWindowFlags flags_;
-    static const ImGuiWindowFlags DEFAULT_FLAGS = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |
-                                                  ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoScrollbar;
+    static const ImGuiWindowFlags DEFAULT_FLAGS = ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoScrollbar;
 
 public:
     // Added on 2021-11-06 by copyrat90
