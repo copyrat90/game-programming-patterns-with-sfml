@@ -61,7 +61,12 @@ cmake --build --preset ninja-vcpkg-debug
 > If you are using Visual Studio 2019 or later, you can just open the project's folder, wait for the CMake to automatically configure presets, and hit F6 to build.\
 > You still need to add `VCPKG_ROOT` environment variable though.
 
-Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/manifests.html), **all the dependencies are automatically installed** when you specify the [vcpkg's CMake toolchain file](https://vcpkg.io/en/docs/users/integration.html#cmake-toolchain-file-recommended-for-open-source-cmake-projects) on executing CMake.
+Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/manifests.html), the dependencies are automatically installed when you specify the [vcpkg's CMake toolchain file](https://vcpkg.io/en/docs/users/integration.html#cmake-toolchain-file-recommended-for-open-source-cmake-projects) on executing CMake.\
+But if you're on Linux, you have to install some dependencies manually from the package manager.
+```bash
+# On Ubuntu
+sudo apt install libx11-dev libxrandr-dev libxi-dev libudev-dev libgl1-mesa-dev -y
+```
 
 
 
