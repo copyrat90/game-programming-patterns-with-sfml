@@ -5,6 +5,11 @@
 
 #include "Command.hpp"
 
+namespace sf
+{
+class Event;
+}
+
 namespace igpp::c02_01
 {
 
@@ -24,10 +29,9 @@ public:
 public:
     InputHandler();
 
-    Command* handleInput();
+    Command* handleInput(const sf::Event&);
 
 private:
-    std::array<const char*, TOTAL_COUNT_> keybindNames_;
     // Methods to bind commands...
     std::array<std::unique_ptr<Command>, TOTAL_COUNT_> buttons_;
 };

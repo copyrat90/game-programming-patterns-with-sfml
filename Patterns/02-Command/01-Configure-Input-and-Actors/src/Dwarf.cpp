@@ -150,7 +150,7 @@ constexpr const char* STATE_NAMES[Dwarf::AnimationState::TOTAL_COUNT_] = {"", "J
 static void LogCommandCallStack(Dwarf::AnimationState animState)
 {
     global::logger->AddLog("=======================================================\n");
-    global::logger->AddLog("<1> inputHandler_.handleInput() returns command object ptr\n");
+    global::logger->AddLog("<1> inputHandler_.handleInput(event) returns command object ptr\n");
     global::logger->AddLog("    Its actual type is %s*\n", TYPE_NAMES[animState]);
     global::logger->AddLog("<2> command->execute(*dwarf_) called\n");
     global::logger->AddLog("<3> %s::execute(*dwarf_) calls Dwarf::%s()\n", TYPE_NAMES[animState],

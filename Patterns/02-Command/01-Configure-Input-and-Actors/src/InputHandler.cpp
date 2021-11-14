@@ -1,6 +1,6 @@
 #include "InputHandler.hpp"
 
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "JumpCommand.hpp"
 #include "SpecialAttackCommand.hpp"
@@ -19,17 +19,24 @@ InputHandler::InputHandler()
 }
 
 // Snippet from the book, somewhat modified.
-Command* InputHandler::handleInput()
+Command* InputHandler::handleInput(const sf::Event& event)
 {
-    using KB = sf::Keyboard;
-    if (KB::isKeyPressed(KB::A))
-        return buttons_[Key::A].get();
-    if (KB::isKeyPressed(KB::S))
-        return buttons_[Key::S].get();
-    if (KB::isKeyPressed(KB::Z))
-        return buttons_[Key::Z].get();
-    if (KB::isKeyPressed(KB::X))
-        return buttons_[Key::X].get();
+    if (event.type == sf::Event::KeyPressed)
+    {
+        switch (event.key.code)
+        {
+            using SfKey = sf::Keyboard::Key;
+            using IHKey = InputHandler::Key;
+        case SfKey::A:
+            return buttons_[IHKey::A].get();
+        case SfKey::S:
+            return buttons_[IHKey::S].get();
+        case SfKey::Z:
+            return buttons_[IHKey::Z].get();
+        case SfKey::X:
+            return buttons_[IHKey::X].get();
+        }
+    }
 
     // Nothing pressed, so do nothing.
     return nullptr;

@@ -13,6 +13,7 @@ Application::Application()
               sf::Style::Titlebar | sf::Style::Close)
 {
     window_.setFramerateLimit(60);
+    window_.setKeyRepeatEnabled(false);
     textures_.load(TextureId::DWARF, "assets/dwarf.png");
     fonts_.load(FontId::D2CODING, "assets/d2coding.ttf");
 
@@ -48,14 +49,14 @@ void Application::processEvents()
     {
         ImGui::SFML::ProcessEvent(event);
 
+        // Snippet from the book, somewhat modified.
+        Command* command = inputHandler_.handleInput(event);
+        if (command)
+            command->execute(*dwarf_);
+
         if (event.type == sf::Event::Closed)
             window_.close();
     }
-
-    // Snippet from the book
-    Command* command = inputHandler_.handleInput();
-    if (command)
-        command->execute(*dwarf_);
 }
 
 void Application::update(const sf::Time& deltaTime)
