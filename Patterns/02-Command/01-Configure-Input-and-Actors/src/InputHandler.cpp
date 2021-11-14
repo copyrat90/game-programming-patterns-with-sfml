@@ -2,10 +2,7 @@
 
 #include <SFML/Window/Event.hpp>
 
-#include "JumpCommand.hpp"
-#include "SpecialAttackCommand.hpp"
-#include "StrongAttackCommand.hpp"
-#include "WeakAttackCommand.hpp"
+#include "Commands.hpp"
 
 namespace igpp::c02_01
 {
