@@ -16,7 +16,7 @@ Application::Application()
     textures_.load(TextureId::DWARF, "assets/dwarf.png");
     fonts_.load(FontId::D2CODING, "assets/d2coding.ttf");
 
-    actors_.push_back(std::make_unique<Dwarf>(textures_));
+    actors_.push_back(std::make_unique<Dwarf>(textures_, fonts_));
     dwarf_ = actors_[0].get();
 
     ImGui::SFML::Init(window_);

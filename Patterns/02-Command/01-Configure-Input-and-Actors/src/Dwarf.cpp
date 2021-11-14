@@ -16,17 +16,27 @@ constexpr int SPRITE_Y_INDEX[Dwarf::AnimationState::TOTAL_COUNT_] = {0, 5, 3, 2,
 constexpr int LOOP_AMOUNT[Dwarf::AnimationState::TOTAL_COUNT_] = {-1, 1, 1, 1, 3};
 constexpr int SPRITE_WIDTH = 64;
 constexpr int SPRITE_HEIGHT = 32;
+
+const std::string ANIM_STATE_STRS[Dwarf::AnimationState::TOTAL_COUNT_] = {"Idle", "Jump", "Weak Attack",
+                                                                          "Strong Attack", "Special Attack"};
 } // namespace
 
-Dwarf::Dwarf(TextureManager& textures) : animationState_(AnimationState::IDLE)
+Dwarf::Dwarf(TextureManager& textures, FontManager& fonts) : animationState_(AnimationState::IDLE)
 {
     sprite_.setTexture(textures.get(TextureId::DWARF));
     sprite_.setTextureRect({0, 0, SPRITE_WIDTH, SPRITE_HEIGHT});
     const sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2, bounds.height / 2);
+    sprite_.setScale(5, 5);
+
+    animationStateText_.setFont(fonts.get(FontId::D2CODING));
+    animationStateText_.setCharacterSize(25);
+    animationStateText_.setFillColor(sf::Color::White);
+    animationStateText_.setPosition(0, 100);
 
     setPosition(600, 250);
-    setScale(5, 5);
+
+    changeAnimation(animationState_);
 }
 
 void Dwarf::update(const sf::Time& dt)
@@ -44,6 +54,7 @@ void Dwarf::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(sprite_, states);
+    target.draw(animationStateText_, states);
 }
 
 void Dwarf::nextFrame()
@@ -111,11 +122,19 @@ void Dwarf::specialAttack()
 void Dwarf::changeAnimation(AnimationState newAnimState)
 {
     animationState_ = newAnimState;
+    updateAnimationStateText(newAnimState);
     animationTimer_ = sf::Time::Zero;
     animationFrame_ = 0;
     animationLoopCount_ = 0;
     const sf::IntRect rect = {0, SPRITE_Y_INDEX[newAnimState] * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT};
     sprite_.setTextureRect(rect);
+}
+
+void Dwarf::updateAnimationStateText(AnimationState newAnimState)
+{
+    animationStateText_.setString(ANIM_STATE_STRS[newAnimState]);
+    const sf::FloatRect bounds = animationStateText_.getLocalBounds();
+    animationStateText_.setOrigin(bounds.width / 2, bounds.height / 2);
 }
 
 namespace

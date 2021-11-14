@@ -3,6 +3,7 @@
 #include "GameActor.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include "AssetManagers.hpp"
 
@@ -23,7 +24,7 @@ public:
     };
 
 public:
-    Dwarf(TextureManager&);
+    Dwarf(TextureManager&, FontManager&);
 
     void update(const sf::Time& dt) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -38,10 +39,12 @@ public:
 private:
     // Change the animation and reset frame & time to 0
     void changeAnimation(AnimationState);
+    void updateAnimationStateText(AnimationState);
 
 private:
     sf::Sprite sprite_;
     AnimationState animationState_;
+    sf::Text animationStateText_;
     sf::Time animationTimer_;
     int animationFrame_ = 0;
     int animationLoopCount_ = 0;
