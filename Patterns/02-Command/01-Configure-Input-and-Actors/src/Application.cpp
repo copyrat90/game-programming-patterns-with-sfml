@@ -16,6 +16,7 @@ Application::Application()
     window_.setKeyRepeatEnabled(false);
     textures_.load(TextureId::DWARF, "assets/dwarf.png");
     fonts_.load(FontId::D2CODING, "assets/d2coding.ttf");
+    keybindUI_.emplace(inputHandler_, fonts_);
 
     actors_.push_back(std::make_unique<Dwarf>(textures_, fonts_));
     dwarf_ = actors_[0].get();
@@ -54,6 +55,8 @@ void Application::processEvents()
         if (command)
             command->execute(*dwarf_);
 
+        keybindUI_->handleEvent(event);
+
         if (event.type == sf::Event::Closed)
             window_.close();
     }
@@ -64,6 +67,8 @@ void Application::update(const sf::Time& deltaTime)
     for (auto& actor : actors_)
         actor->update(deltaTime);
 
+    keybindUI_->update(deltaTime);
+
     ImGui::SFML::Update(window_, deltaTime);
 }
 
@@ -73,6 +78,8 @@ void Application::render()
 
     for (const auto& actor : actors_)
         window_.draw(*actor);
+
+    window_.draw(*keybindUI_);
 
     global::logger->Draw("Log Window");
 

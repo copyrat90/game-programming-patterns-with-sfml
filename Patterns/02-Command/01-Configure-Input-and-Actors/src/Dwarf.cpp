@@ -34,7 +34,7 @@ Dwarf::Dwarf(TextureManager& textures, FontManager& fonts) : animationState_(Ani
     animationStateText_.setFillColor(sf::Color::White);
     animationStateText_.setPosition(0, 100);
 
-    setPosition(600, 250);
+    setPosition(750, 250);
 
     changeAnimation(animationState_);
 }
@@ -80,14 +80,14 @@ void Dwarf::nextFrame()
     sprite_.setTextureRect(rect);
 }
 
-static void LogCommandCallStack(Dwarf::AnimationState animState);
+static void logCommandCallStack(Dwarf::AnimationState animState);
 
 void Dwarf::jump()
 {
     if (animationState_ != AnimationState::JUMP)
     {
         changeAnimation(AnimationState::JUMP);
-        LogCommandCallStack(AnimationState::JUMP);
+        logCommandCallStack(AnimationState::JUMP);
     }
 }
 
@@ -96,7 +96,7 @@ void Dwarf::weakAttack()
     if (animationState_ != AnimationState::WEAK_ATTACK)
     {
         changeAnimation(AnimationState::WEAK_ATTACK);
-        LogCommandCallStack(AnimationState::WEAK_ATTACK);
+        logCommandCallStack(AnimationState::WEAK_ATTACK);
     }
 }
 
@@ -105,7 +105,7 @@ void Dwarf::strongAttack()
     if (animationState_ != AnimationState::STRONG_ATTACK)
     {
         changeAnimation(AnimationState::STRONG_ATTACK);
-        LogCommandCallStack(AnimationState::STRONG_ATTACK);
+        logCommandCallStack(AnimationState::STRONG_ATTACK);
     }
 }
 
@@ -114,7 +114,7 @@ void Dwarf::specialAttack()
     if (animationState_ != AnimationState::SPECIAL_ATTACK)
     {
         changeAnimation(AnimationState::SPECIAL_ATTACK);
-        LogCommandCallStack(AnimationState::SPECIAL_ATTACK);
+        logCommandCallStack(AnimationState::SPECIAL_ATTACK);
     }
 }
 
@@ -147,10 +147,8 @@ constexpr const char* STATE_NAMES[Dwarf::AnimationState::TOTAL_COUNT_] = {"", "J
                                                                           "SPECIAL_ATTACK"};
 } // namespace
 
-static void LogCommandCallStack(Dwarf::AnimationState animState)
+static void logCommandCallStack(Dwarf::AnimationState animState)
 {
-    global::logger->AddLog("=======================================================\n");
-    global::logger->AddLog("<1> inputHandler_.handleInput(event) returns command object ptr\n");
     global::logger->AddLog("    Its actual type is %s*\n", TYPE_NAMES[animState]);
     global::logger->AddLog("<2> command->execute(*dwarf_) called\n");
     global::logger->AddLog("<3> %s::execute(*dwarf_) calls Dwarf::%s()\n", TYPE_NAMES[animState],
