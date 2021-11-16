@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Window/Keyboard.hpp>
 #include <array>
 #include <memory>
 #include <string>
@@ -26,6 +27,8 @@ public:
         X,
         TOTAL_COUNT_
     };
+    static sf::Keyboard::Key convertIHKeyToSfKey(InputHandler::Key);
+    static InputHandler::Key convertSfKeyToIHKey(sf::Keyboard::Key);
 
 public:
     static constexpr const char KEY_CHARS[Key::TOTAL_COUNT_] = {'A', 'S', 'Z', 'X'};

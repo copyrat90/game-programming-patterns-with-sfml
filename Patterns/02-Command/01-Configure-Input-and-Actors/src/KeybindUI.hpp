@@ -70,6 +70,8 @@ private:
         void setFocusLineVisible(bool visible);
         void setFocusLineColor(const sf::Color&);
 
+        void setKeyIconColor(const sf::Color&);
+
     private:
         sf::RectangleShape keyRectShape_;
         const InputHandler::Key key_;

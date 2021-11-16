@@ -80,42 +80,38 @@ void Dwarf::nextFrame()
     sprite_.setTextureRect(rect);
 }
 
-static void logCommandCallStack(Dwarf::AnimationState animState);
+static void logCommandCallStack(Dwarf::AnimationState animState, bool animChanged);
 
 void Dwarf::jump()
 {
+    logCommandCallStack(AnimationState::JUMP, animationState_ != AnimationState::JUMP);
+
     if (animationState_ != AnimationState::JUMP)
-    {
         changeAnimation(AnimationState::JUMP);
-        logCommandCallStack(AnimationState::JUMP);
-    }
 }
 
 void Dwarf::weakAttack()
 {
+    logCommandCallStack(AnimationState::WEAK_ATTACK, animationState_ != AnimationState::WEAK_ATTACK);
+
     if (animationState_ != AnimationState::WEAK_ATTACK)
-    {
         changeAnimation(AnimationState::WEAK_ATTACK);
-        logCommandCallStack(AnimationState::WEAK_ATTACK);
-    }
 }
 
 void Dwarf::strongAttack()
 {
+    logCommandCallStack(AnimationState::STRONG_ATTACK, animationState_ != AnimationState::STRONG_ATTACK);
+
     if (animationState_ != AnimationState::STRONG_ATTACK)
-    {
         changeAnimation(AnimationState::STRONG_ATTACK);
-        logCommandCallStack(AnimationState::STRONG_ATTACK);
-    }
 }
 
 void Dwarf::specialAttack()
 {
+    logCommandCallStack(AnimationState::SPECIAL_ATTACK, animationState_ != AnimationState::SPECIAL_ATTACK);
+
     if (animationState_ != AnimationState::SPECIAL_ATTACK)
-    {
         changeAnimation(AnimationState::SPECIAL_ATTACK);
-        logCommandCallStack(AnimationState::SPECIAL_ATTACK);
-    }
 }
 
 // Change the animation and reset frame & time to 0
@@ -147,13 +143,14 @@ constexpr const char* STATE_NAMES[Dwarf::AnimationState::TOTAL_COUNT_] = {"", "J
                                                                           "SPECIAL_ATTACK"};
 } // namespace
 
-static void logCommandCallStack(Dwarf::AnimationState animState)
+static void logCommandCallStack(Dwarf::AnimationState animState, bool animChanged)
 {
     global::logger->AddLog("    Its actual type is %s*\n", TYPE_NAMES[animState]);
     global::logger->AddLog("<2> command->execute(*dwarf_) called\n");
     global::logger->AddLog("<3> %s::execute(*dwarf_) calls Dwarf::%s()\n", TYPE_NAMES[animState],
                            FUNC_NAMES[animState]);
-    global::logger->AddLog("<4> Dwarf::changeAnimation(AnimationState::%s) called\n", STATE_NAMES[animState]);
+    if (animChanged)
+        global::logger->AddLog("<4> Dwarf::changeAnimation(AnimationState::%s) called\n", STATE_NAMES[animState]);
 }
 
 } // namespace igpp::c02_01

@@ -107,8 +107,23 @@ void KeybindUI::KeyIcon::initKeybindDescription(InputHandler::Key key, InputHand
     keybindDescription_.setPosition(getOrigin() + sf::Vector2f{textXPos, 0.f});
 }
 
-void KeybindUI::KeyIcon::handleEvent(const sf::Event&)
+void KeybindUI::KeyIcon::handleEvent(const sf::Event& event)
 {
+    using SfKey = sf::Keyboard::Key;
+    using IHKey = InputHandler::Key;
+
+    if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
+    {
+        const SfKey iconKey = InputHandler::convertIHKeyToSfKey(key_);
+
+        if (event.key.code == iconKey)
+        {
+            if (event.type == sf::Event::KeyPressed)
+                setKeyIconColor(sf::Color::Green);
+            else
+                setKeyIconColor(sf::Color::White);
+        }
+    }
 }
 
 void KeybindUI::KeyIcon::update(const sf::Time& dt)
@@ -137,14 +152,17 @@ void KeybindUI::KeyIcon::setState(State newState)
         {
         case State::NONE:
             setFocusLineVisible(false);
+            keybindDescription_.setColor(sf::Color::White);
             break;
         case State::MOUSE_HOVER:
             setFocusLineVisible(true);
             setFocusLineColor(sf::Color::White);
+            keybindDescription_.setColor(sf::Color::White);
             break;
         case State::SELECTED:
             setFocusLineVisible(true);
             setFocusLineColor(sf::Color::Cyan);
+            keybindDescription_.setColor(sf::Color::Cyan);
         }
     }
 }
@@ -171,6 +189,12 @@ void KeybindUI::KeyIcon::setFocusLineColor(const sf::Color& color)
         for (auto& vertex : line)
             vertex.color = color;
     }
+}
+
+void KeybindUI::KeyIcon::setKeyIconColor(const sf::Color& color)
+{
+    keyChar_.setColor(color);
+    keyRectShape_.setOutlineColor(color);
 }
 
 void KeybindUI::KeyIcon::swapKeybindText(KeybindUI::KeyIcon& other)
@@ -215,6 +239,9 @@ void KeybindUI::handleEvent(const sf::Event& event)
         handleEvent(event.mouseButton);
         break;
     }
+
+    for (auto& keyIcon : keyIcons_)
+        keyIcon.handleEvent(event);
 }
 
 void KeybindUI::update(const sf::Time& dt)

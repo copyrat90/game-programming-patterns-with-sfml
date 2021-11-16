@@ -1,12 +1,52 @@
 #include "InputHandler.hpp"
 
 #include <SFML/Window/Event.hpp>
+#include <stdexcept>
+#include <string>
 
 #include "Commands.hpp"
 #include "global.hpp"
 
 namespace igpp::c02_01
 {
+
+sf::Keyboard::Key InputHandler::convertIHKeyToSfKey(InputHandler::Key ihKey)
+{
+    using IHKey = InputHandler::Key;
+    using SfKey = sf::Keyboard::Key;
+
+    switch (ihKey)
+    {
+    case IHKey::A:
+        return SfKey::A;
+    case IHKey::S:
+        return SfKey::S;
+    case IHKey::Z:
+        return SfKey::Z;
+    case IHKey::X:
+        return SfKey::X;
+    }
+    throw std::invalid_argument("Invalid InputHandler::Key : " + std::to_string(ihKey) + "given");
+}
+
+InputHandler::Key InputHandler::convertSfKeyToIHKey(sf::Keyboard::Key sfKey)
+{
+    using SfKey = sf::Keyboard::Key;
+    using IHKey = InputHandler::Key;
+
+    switch (sfKey)
+    {
+    case SfKey::A:
+        return IHKey::A;
+    case SfKey::S:
+        return IHKey::S;
+    case SfKey::Z:
+        return IHKey::Z;
+    case SfKey::X:
+        return IHKey::X;
+    }
+    throw std::invalid_argument("Invalid sf::Keyboard::Key : " + std::to_string(sfKey) + "given");
+}
 
 InputHandler::InputHandler()
 {
@@ -32,23 +72,18 @@ Command* InputHandler::handleInput(const sf::Event& event)
             using SfKey = sf::Keyboard::Key;
             using IHKey = InputHandler::Key;
         case SfKey::A:
-            logCommandCallStack(IHKey::A);
-            return buttons_[IHKey::A].get();
         case SfKey::S:
-            logCommandCallStack(IHKey::S);
-            return buttons_[IHKey::S].get();
         case SfKey::Z:
-            logCommandCallStack(IHKey::Z);
-            return buttons_[IHKey::Z].get();
         case SfKey::X:
-            logCommandCallStack(IHKey::X);
-            return buttons_[IHKey::X].get();
+            IHKey key = convertSfKeyToIHKey(event.key.code);
+            logCommandCallStack(key);
+            return buttons_[key].get();
         }
     }
 
     // Nothing pressed, so do nothing.
     return nullptr;
-}
+} // namespace igpp::c02_01
 
 void InputHandler::swapKeys(Key key1, Key key2)
 {
