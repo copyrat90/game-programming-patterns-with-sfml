@@ -96,11 +96,13 @@ private:
     bool pointHoverOnKeyIcon(const sf::Vector2f& point, const KeybindUI::KeyIcon& keyIcon) const;
     KeyIcon* getSelectedKey();
 
+    void setKeybindTooltipText(bool selectAnotherKey);
+
 private:
     InputHandler& inputHandler_;
 
     std::array<KeyIcon, TOTAL_BUTTONS> keyIcons_;
-    sf::Text helpMessage_;
+    sf::Text keybindTooltip_;
 };
 
 } // namespace igpp::c02_01

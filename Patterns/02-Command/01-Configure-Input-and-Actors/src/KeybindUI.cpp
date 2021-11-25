@@ -215,10 +215,10 @@ KeybindUI::KeybindUI(InputHandler& inputHandler, FontManager& fonts)
                                              KeyIcon(InputHandler::Key::X, 'X', inputHandler, fonts)}
 {
     const sf::Font& font = fonts.get(FontId::D2CODING);
-    helpMessage_.setFont(font);
-    helpMessage_.setCharacterSize(20);
-    helpMessage_.setColor(sf::Color::White);
-    helpMessage_.setPosition(constant::WINDOW_WIDTH / 2, constant::WINDOW_HEIGHT - 100);
+    keybindTooltip_.setFont(font);
+    keybindTooltip_.setCharacterSize(30);
+    keybindTooltip_.setPosition(constant::WINDOW_WIDTH / 2, constant::WINDOW_HEIGHT - 50);
+    setKeybindTooltipText(false);
 
     keyIcons_[0].setPosition(0, 0);
     keyIcons_[1].setPosition(ICON_WIDTH + ICON_MARGIN_X, 0);
@@ -258,7 +258,7 @@ void KeybindUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     // states are not applied to the help message, to use absolute coordinate.
     // This is a very lazy implementation;  but it simplifies the codebase.
-    target.draw(helpMessage_);
+    target.draw(keybindTooltip_);
 }
 
 void KeybindUI::handleEvent(const sf::Event::MouseButtonEvent& event)
@@ -313,6 +313,8 @@ void KeybindUI::handleEvent(const sf::Event::MouseButtonEvent& event)
                 currClickedKey->setState(KeyIcon::State::SELECTED);
             }
         }
+
+        setKeybindTooltipText(getSelectedKey());
     }
 }
 
@@ -345,6 +347,17 @@ KeybindUI::KeyIcon* KeybindUI::getSelectedKey()
         if (keyIcon.getState() == KeyIcon::State::SELECTED)
             return &keyIcon;
     return nullptr;
+}
+
+void KeybindUI::setKeybindTooltipText(bool selectAnotherKey)
+{
+    constexpr const char* SELECT_ANOTHER_KEY_MSG = "* Choose another key to swap the keybinding with!";
+    constexpr const char* CHOOSE_A_KEY_MSG = "* Click a key icon to change its keybinding...";
+
+    keybindTooltip_.setColor(selectAnotherKey ? sf::Color::Cyan : sf::Color::White);
+    keybindTooltip_.setString(selectAnotherKey ? SELECT_ANOTHER_KEY_MSG : CHOOSE_A_KEY_MSG);
+    auto bounds = keybindTooltip_.getLocalBounds();
+    keybindTooltip_.setOrigin(bounds.width / 2, bounds.height / 2);
 }
 
 } // namespace igpp::c02_01
