@@ -29,11 +29,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: windows-latest
-            vcpkgCommitId: '66c39e113a348a6ae80419fae5a629b951b00f1a'
+            vcpkgCommitId: 'a506c84a86e5b08ee1b2c4bb0be628ded20af99d'
           - os: ubuntu-latest
-            vcpkgCommitId: '66c39e113a348a6ae80419fae5a629b951b00f1a'
+            vcpkgCommitId: 'a506c84a86e5b08ee1b2c4bb0be628ded20af99d'
           - os: macos-latest
-            vcpkgCommitId: '66c39e113a348a6ae80419fae5a629b951b00f1a'
+            vcpkgCommitId: 'a506c84a86e5b08ee1b2c4bb0be628ded20af99d'
 
     steps:
       - uses: actions/checkout@v2

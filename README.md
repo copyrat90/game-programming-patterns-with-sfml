@@ -48,6 +48,7 @@ So, please go learn them; It is not that difficult concept to understand.
 You need to install these along with your favorite [C++ compiler that supports **C++17 or later**](https://en.cppreference.com/w/cpp/compiler_support).
 1. [**CMake**](https://cmake.org/), the meta build system for C/C++.
 2. [**vcpkg**](https://vcpkg.io/), the C/C++ library manager by Microsoft.
+> TEMPORARY NOTE: vcpkg port of `ImGui-SFML v2.4` is having include failure issues right now, you should `git checkout a506c84` on vcpkg to use `v2.3` before the issue is fixed.
 
 Next, add `VCPKG_ROOT` environment variable pointing to the directory where vcpkg is installed.
 
