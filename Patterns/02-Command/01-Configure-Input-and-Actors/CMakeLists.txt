@@ -12,4 +12,6 @@ target_include_directories("02_Command_01_Configure_Input_and_Actors" PRIVATE ${
 
 target_link_libraries("02_Command_01_Configure_Input_and_Actors" PRIVATE ${PATTERNS_LIBS})
 
-file(COPY assets DESTINATION .)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/assets)
+    file(COPY assets DESTINATION .)
+endif()
