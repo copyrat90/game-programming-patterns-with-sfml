@@ -10,14 +10,10 @@
 #   described by the vcpkg.json manifest file. It will be a no-op if those are restored from cache.
 # - Finally builds the sources with Ninja.
 
-name: build
+name: build-cd
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   job:
@@ -70,3 +66,21 @@ jobs:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
           configurePreset: ninja-multi-vcpkg
           buildPreset: ninja-multi-vcpkg-release
+
+      - name: Zip the binaries and licenses
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: 'igpp-${{ matrix.os }}.zip'
+          directory: '${{ github.workspace }}/build/ninja-multi-vcpkg'
+          # Only include RelWithDebInfo (exclude Debug & Release)
+          exclusions: 'Debug Release CMakeFiles cmake_install.cmake'
+          path: |
+            Patterns
+            licenses
+            LICENSE
+
+      - name: Add the zip archive to the release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ github.workspace }}/build/ninja-multi-vcpkg/igpp-${{ matrix.os }}.zip

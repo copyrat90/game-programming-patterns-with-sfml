@@ -13,5 +13,6 @@ target_include_directories("02_Command_01_Configure_Input_and_Actors" PRIVATE ${
 target_link_libraries("02_Command_01_Configure_Input_and_Actors" PRIVATE ${PATTERNS_LIBS})
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/assets)
-    file(COPY assets DESTINATION .)
+    file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+    file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo)
 endif()
