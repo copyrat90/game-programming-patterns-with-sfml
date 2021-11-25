@@ -44,6 +44,14 @@ So, please go learn them; It is not that difficult concept to understand.
 
 
 
+## How to study the source
+Each `Patterns/{xx-Pattern}/{yy-Example}/src` folder contains the source files.
+
+Start examining the lines commented as **`// Snippet from the book`**.\
+Also check the callers who call **`global::logger->AddLog(...)`** function.
+
+
+
 ## Build
 You need to install these along with your favorite [C++ compiler that supports **C++17 or later**](https://en.cppreference.com/w/cpp/compiler_support).
 1. [**CMake**](https://cmake.org/), the meta build system for C/C++.
