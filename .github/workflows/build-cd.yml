@@ -10,6 +10,10 @@
 #   described by the vcpkg.json manifest file. It will be a no-op if those are restored from cache.
 # - Finally builds the sources with Ninja.
 
+# Edited by copyrat90:
+# This workflow runs when a GitHub Release is published.
+# It automatically adds binary releases for the Windows, Mac OS and Linux.
+
 name: build-cd
 on:
   release:
@@ -67,6 +71,9 @@ jobs:
           configurePreset: ninja-multi-vcpkg
           buildPreset: ninja-multi-vcpkg-release
 
+      - name: Copy the OS-dependent README.txt
+        run: cp "${{ github.workspace }}/.cd-readme/readme-${{ matrix.os }}.txt" "${{ github.workspace }}/build/ninja-multi-vcpkg/README.txt"
+
       - name: Zip the binaries and licenses
         uses: thedoctor0/zip-release@master
         with:
@@ -79,6 +86,7 @@ jobs:
             Patterns
             licenses
             LICENSE
+            README.txt
 
       - name: Add the zip archive to the release
         uses: softprops/action-gh-release@v1
