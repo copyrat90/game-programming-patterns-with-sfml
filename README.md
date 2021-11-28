@@ -102,3 +102,8 @@ On top of those source files, there are some license notifications and links to 
 
 ### Assets
 You can find the license of each asset on `Patterns/{xx-Pattern}/{yy-Example}/assets`, with the asset itself.
+
+
+
+## Contribute
+See [CONTRIBUTING.md](CONTRIBUTING.md).
