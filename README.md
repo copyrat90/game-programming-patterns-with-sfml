@@ -4,9 +4,9 @@
 
 Examples from https://gameprogrammingpatterns.com as interactive GUI demo
 
-### *Just started! Nothing to see now; Please visit later!*
+### *Just started! There's only one example available now; More to come!*
 
-> *(Placeholder: Screenshots should go here)*
+![](showcase/02-Command-01.png)
 
 This project aims to provide running demos
 made out of the snippets from the famous design pattern book by Robert Nystrom,
@@ -54,8 +54,9 @@ Also check the callers who call **`global::logger->AddLog(...)`** function.
 
 ## Build
 You need to install these along with your favorite [C++ compiler that supports **C++17 or later**](https://en.cppreference.com/w/cpp/compiler_support).
-1. [**CMake**](https://cmake.org/), the meta build system for C/C++.
-2. [**vcpkg**](https://vcpkg.io/), the C/C++ library manager by Microsoft.
+1. [**CMake**](https://cmake.org/), a meta build system for C/C++.
+2. [**Ninja**](https://ninja-build.org/), a small build system with a focus on speed.
+3. [**vcpkg**](https://vcpkg.io/), the C/C++ library manager by Microsoft.
 > TEMPORARY NOTE: vcpkg port of `ImGui-SFML v2.4` is having include failure issues right now, you should `git checkout a506c84` on vcpkg to use `v2.3` before the issue is fixed.
 
 Next, add `VCPKG_ROOT` environment variable pointing to the directory where vcpkg is installed.
@@ -70,7 +71,7 @@ cmake --build --preset ninja-vcpkg-debug
 > If you are using Visual Studio 2019 or later, you can just open the project's folder, wait for the CMake to automatically configure presets, and hit F6 to build.\
 > You still need to add `VCPKG_ROOT` environment variable though.
 
-Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/manifests.html), the dependencies are automatically installed when you specify the [vcpkg's CMake toolchain file](https://vcpkg.io/en/docs/users/integration.html#cmake-toolchain-file-recommended-for-open-source-cmake-projects) on executing CMake.\
+Since this project uses vcpkg's [Manifest Mode](https://vcpkg.io/en/docs/users/manifests.html), the dependencies are automatically installed.\
 But if you're on Linux, you have to install some dependencies manually from the package manager.
 ```bash
 # On Ubuntu
@@ -93,6 +94,11 @@ This project relies on these libraries:
 
 ## License
 
+### Source code
 The source code of this project is licensed under the [MIT/Expat license](LICENSE).
 
+There are some exceptions, which is some source files copy-pasted from other repos.\
+On top of those source files, there are some license notifications and links to the original repos.
+
+### Assets
 You can find the license of each asset on `Patterns/{xx-Pattern}/{yy-Example}/assets`, with the asset itself.
