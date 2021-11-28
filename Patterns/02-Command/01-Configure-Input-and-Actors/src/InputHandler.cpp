@@ -83,7 +83,7 @@ Command* InputHandler::handleInput(const sf::Event& event)
 
     // Nothing pressed, so do nothing.
     return nullptr;
-} // namespace igpp::c02_01
+}
 
 void InputHandler::swapKeys(Key key1, Key key2)
 {
