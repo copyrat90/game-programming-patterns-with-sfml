@@ -78,7 +78,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          filename: 'igpp-${{ matrix.os }}.zip'
+          filename: 'igpp-${{ runner.os }}.zip'
           directory: '${{ github.workspace }}/build/ninja-multi-vcpkg'
           # Only include RelWithDebInfo (exclude Debug & Release)
           exclusions: 'Debug Release CMakeFiles cmake_install.cmake'
@@ -91,4 +91,4 @@ jobs:
       - name: Add the zip archive to the release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ github.workspace }}/build/ninja-multi-vcpkg/igpp-${{ matrix.os }}.zip
+          files: ${{ github.workspace }}/build/ninja-multi-vcpkg/igpp-${{ runner.os }}.zip
