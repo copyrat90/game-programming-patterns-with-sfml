@@ -64,8 +64,8 @@ Next, add `VCPKG_ROOT` environment variable pointing to the directory where vcpk
 Finally, when executing `cmake`, specify the cmake preset as shown below.
 ```bash
 cd /path/to/interactive-game-programming-patterns
-cmake --preset ninja-vcpkg
-cmake --build --preset ninja-vcpkg-debug
+cmake --preset ninja-multi-vcpkg
+cmake --build --preset ninja-multi-vcpkg-debug
 ```
 
 > If you are using Visual Studio 2019 or later, you can just open the project's folder, wait for the CMake to automatically configure presets, and hit F6 to build.\
